@@ -2,6 +2,9 @@
 
 A React component for creating interactive jigsaw puzzles with customizable options and smooth drag-and-drop functionality.
 
+This repo was forked and then vibe coded with Cursor to add functionality within a very short window of time for a project (thank you to all the developers that came before me for creating the foundations ❤️)
+
+
 ## Installation
 
 ### From GitHub
