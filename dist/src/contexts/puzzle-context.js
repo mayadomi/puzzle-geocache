@@ -1,11 +1,11 @@
 import { jsx as _jsx } from "react/jsx-runtime";
-import { REACT_JIGSAW_STORAGE_KEY } from '@/constants';
+import { PUZZLE_GEOCACHE_STORAGE_KEY } from '@/constants';
 import { createContext, useContext, useState } from 'react';
 const PuzzleContext = createContext(undefined);
 // On first mount, check localStorage for saved values
 const getInitialBoardConfig = (checkLocalStorage) => {
     if (typeof window !== 'undefined' && checkLocalStorage) {
-        const boardConfig = localStorage.getItem(REACT_JIGSAW_STORAGE_KEY);
+        const boardConfig = localStorage.getItem(PUZZLE_GEOCACHE_STORAGE_KEY);
         if (boardConfig) {
             const parsed = JSON.parse(boardConfig);
             if (typeof parsed.rows === 'number' && typeof parsed.columns === 'number') {

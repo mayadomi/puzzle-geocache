@@ -4,6 +4,54 @@ import { Field } from './types';
 // added to this menu to appear in the demo options.
 export const FIELDS: Field[] = [
   {
+    name: 'checkLocalStorage',
+    label: 'checkLocalStorage:',
+    type: 'checkbox',
+    indent: 1,
+  },
+  {
+    name: 'enableQRUnlock',
+    label: 'enableQRUnlock:',
+    type: 'checkbox',
+    indent: 1,
+  },
+  {
+    name: 'completionAnimation',
+    label: 'completionAnimation:',
+    type: 'text',
+    indent: 1,
+    isKey: true,
+    isBrace: true,
+    braceType: 'open',
+  },
+  {
+    name: 'completionAnimation.type',
+    label: 'type:',
+    type: 'select',
+    indent: 2,
+    options: ['confetti', 'fade', 'zoom', 'none'],
+  },
+  {
+    name: 'completionAnimation.duration',
+    label: 'duration:',
+    type: 'number',
+    indent: 2,
+  },
+  {
+    name: 'completionAnimation.message',
+    label: 'message:',
+    type: 'text',
+    indent: 2,
+  },
+  {
+    name: 'completionAnimation',
+    label: '',
+    type: 'text',
+    indent: 1,
+    isBrace: true,
+    braceType: 'close',
+  },
+  {
     name: 'board',
     label: 'board:',
     type: 'text',

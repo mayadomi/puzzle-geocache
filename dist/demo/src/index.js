@@ -18,7 +18,7 @@ const App = () => {
         // Force re-render by updating the key
         setPuzzleKey((prev) => prev + 1);
     };
-    return (_jsxs("div", { className: "puzzleWrapper", children: [_jsx("h1", { className: "header", children: "React Jigsaw Demo" }), _jsxs("div", { className: "puzzleContainer", children: [_jsx(Puzzle, { image: imageSource, onRefresh: handleRefresh, options: options }, puzzleKey), _jsx(PropOptionsWrapper, { handlePropsChange: handlePropsChange })] })] }));
+    return (_jsxs("div", { className: "puzzleWrapper", children: [_jsx("h1", { className: "header", children: "Puzzle Geocache Demo" }), _jsxs("div", { className: "puzzleContainer", children: [_jsx(Puzzle, { image: imageSource, onRefresh: handleRefresh, options: options }, puzzleKey), _jsx(PropOptionsWrapper, { handlePropsChange: handlePropsChange })] })] }));
 };
 export default App;
 //# sourceMappingURL=index.js.map

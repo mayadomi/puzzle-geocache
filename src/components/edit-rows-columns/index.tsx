@@ -49,7 +49,7 @@ const EditRowsColumns: FC<EditRowsColumnsProps> = (props: EditRowsColumnsProps) 
     if (isValid) {
       // Save to localStorage
       localStorage.setItem(
-        'react-jigsaw',
+        'puzzle-geocache',
         JSON.stringify({
           rows: parseFloat(rows),
           columns: parseFloat(columns),

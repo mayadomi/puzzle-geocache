@@ -316,7 +316,7 @@ const ve = {
       enabled: !1
     }
   }
-}, we = "react-jigsaw", ce = 2, ie = pe(void 0), ze = (r) => {
+}, we = "puzzle-geocache", ce = 2, ie = pe(void 0), ze = (r) => {
   if (typeof window < "u" && r) {
     const t = localStorage.getItem(we);
     if (t) {
@@ -771,7 +771,7 @@ const xe = "_puzzlePiece_10f4h_1", _e = {
     (w === "" || /^\d+$/.test(w)) && i(w);
   }, z = (u) => {
     u.preventDefault(), g && (localStorage.setItem(
-      "react-jigsaw",
+      "puzzle-geocache",
       JSON.stringify({
         rows: parseFloat(a),
         columns: parseFloat(v)

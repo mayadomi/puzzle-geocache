@@ -34,7 +34,7 @@ const EditRowsColumns = (props) => {
         e.preventDefault();
         if (isValid) {
             // Save to localStorage
-            localStorage.setItem('react-jigsaw', JSON.stringify({
+            localStorage.setItem('puzzle-geocache', JSON.stringify({
                 rows: parseFloat(rows),
                 columns: parseFloat(columns),
             }));

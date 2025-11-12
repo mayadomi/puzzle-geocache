@@ -12,8 +12,16 @@ export const DEFAULT_PUZZLE_OPTIONS: PuzzleOptions = {
     snapThreshold: 20,
     width: 400,
   },
-  checkLocalStorage: false,
+  checkLocalStorage: true,
+  completionAnimation: {
+    type: 'confetti',
+    className: '',
+    duration: 3000,
+    message: 'Puzzle Complete! 🎉',
+  },
+  enableQRUnlock: false,
   onComplete: () => {},
+  onPieceUnlock: () => {},
   onRefresh: () => {},
   puzzle: {
     className: '',
@@ -37,6 +45,16 @@ export const DEFAULT_PUZZLE_OPTIONS: PuzzleOptions = {
   },
 };
 
-export const REACT_JIGSAW_STORAGE_KEY = 'react-jigsaw';
+export const PUZZLE_GEOCACHE_STORAGE_KEY = 'puzzle-geocache';
+
+// Storage keys for puzzle persistence
+export const STORAGE_KEYS = {
+  BOARD_CONFIG: 'puzzle-geocache-board-config',
+  PUZZLE_STATE: 'puzzle-geocache-puzzle-state',
+  TIMER_STATE: 'puzzle-geocache-timer-state',
+} as const;
+
+// Maximum age for saved puzzles (30 days in milliseconds)
+export const MAX_PUZZLE_AGE = 30 * 24 * 60 * 60 * 1000;
 
 export const STROKE_WIDTH = 2;

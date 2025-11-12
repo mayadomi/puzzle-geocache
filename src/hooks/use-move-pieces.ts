@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback } from 'react';
+import { useRef, useState, useCallback, useEffect } from 'react';
 import { BoardRef } from '@/types';
 
 interface DragState {
@@ -10,11 +10,13 @@ interface DragState {
 interface UseMovePiecesOptions {
   initialX: number;
   initialY: number;
+  initialIsSnapped?: boolean;
   boardRef: BoardRef;
   targetX: number;
   targetY: number;
   snapThreshold: number;
   onSnap?: () => void;
+  onPositionChange?: (x: number, y: number) => void;
   onDragStart: () => void;
   onDragEnd: () => void;
 }
@@ -33,11 +35,13 @@ interface UseMovePiecesOptions {
 export function useMovePieces({
   initialX,
   initialY,
+  initialIsSnapped = false,
   boardRef,
   targetX,
   targetY,
   snapThreshold,
   onSnap,
+  onPositionChange,
   onDragStart,
   onDragEnd,
 }: UseMovePiecesOptions) {
@@ -51,7 +55,25 @@ export function useMovePieces({
     y: initialY,
   });
   // State for whether the piece is snapped to its target
-  const [isSnapped, setIsSnapped] = useState(false);
+  const [isSnapped, setIsSnapped] = useState(initialIsSnapped);
+
+  // Update snapped state when prop changes (for loading saved state)
+  useEffect(() => {
+    if (initialIsSnapped !== undefined && initialIsSnapped !== isSnapped) {
+      setIsSnapped(initialIsSnapped);
+    }
+  }, [initialIsSnapped, isSnapped]);
+
+  // Update position when initial values change (e.g., when loading saved state)
+  useEffect(() => {
+    setDragState((prev) => {
+      // Only update if not currently dragging and position actually changed
+      if (prev.isDragging || (prev.x === initialX && prev.y === initialY)) {
+        return prev;
+      }
+      return { ...prev, x: initialX, y: initialY };
+    });
+  }, [initialX, initialY]);
 
   // Store drag info in a ref to avoid stale closures during pointer events
   const dragInfoRef = useRef<{
@@ -139,8 +161,13 @@ export function useMovePieces({
       dragInfoRef.current = null;
 
       // Snap if close enough, otherwise just end drag
-      if (!checkSnap(finalX, finalY)) {
+      const didSnap = checkSnap(finalX, finalY);
+      if (!didSnap) {
         setDragState((prev) => ({ ...prev, isDragging: false }));
+        // Notify parent of final position after drag
+        if (onPositionChange) {
+          onPositionChange(finalX, finalY);
+        }
       }
 
       // Notify drag end
@@ -148,7 +175,7 @@ export function useMovePieces({
 
       e.preventDefault();
     },
-    [screenToSvgCoords, checkSnap, onDragEnd],
+    [screenToSvgCoords, checkSnap, onDragEnd, onPositionChange],
   );
 
   // Pointer down handler for starting drag
@@ -222,9 +249,19 @@ export function useMovePieces({
   const moveBy = useCallback(
     (deltaX: number, deltaY: number) => {
       if (isSnapped) return;
-      setDragState((prev) => ({ ...prev, x: prev.x + deltaX, y: prev.y + deltaY }));
+      setDragState((prev) => {
+        const newX = prev.x + deltaX;
+        const newY = prev.y + deltaY;
+        
+        // Notify parent of position change after keyboard movement
+        if (onPositionChange) {
+          setTimeout(() => onPositionChange(newX, newY), 0);
+        }
+        
+        return { ...prev, x: newX, y: newY };
+      });
     },
-    [isSnapped],
+    [isSnapped, onPositionChange],
   );
 
   // Try to snap to the target position (for keyboard Enter/Space)

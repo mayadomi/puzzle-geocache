@@ -1,3 +1,14 @@
+@keyframes unlockFadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) rotate(360deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
 .puzzlePiece {
   cursor: grab;
   position: absolute;
@@ -25,4 +36,8 @@
       filter: drop-shadow(0 0 6px currentColor) drop-shadow(0 0 12px currentColor);
     }
   }
+}
+
+.unlockAnimation {
+  animation: unlockFadeIn 0.6s ease-out;
 }

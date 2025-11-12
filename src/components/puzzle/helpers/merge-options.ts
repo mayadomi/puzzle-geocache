@@ -31,7 +31,16 @@ export const mergeOptions = (
       width: options.board?.width ?? defaults.board.width,
     },
     checkLocalStorage: options.checkLocalStorage ?? defaults.checkLocalStorage,
+    completionAnimation: {
+      type: options.completionAnimation?.type ?? defaults.completionAnimation.type,
+      className: options.completionAnimation?.className ?? defaults.completionAnimation.className,
+      duration: options.completionAnimation?.duration ?? defaults.completionAnimation.duration,
+      message: options.completionAnimation?.message ?? defaults.completionAnimation.message,
+      customComponent: options.completionAnimation?.customComponent,
+    },
+    enableQRUnlock: options.enableQRUnlock ?? defaults.enableQRUnlock,
     onComplete: options.onComplete ?? defaults.onComplete,
+    onPieceUnlock: options.onPieceUnlock ?? defaults.onPieceUnlock,
     onRefresh: options.onRefresh ?? defaults.onRefresh,
     puzzlePiece: {
       strokeColor: options.puzzlePiece?.strokeColor ?? defaults.puzzlePiece.strokeColor,

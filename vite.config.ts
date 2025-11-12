@@ -12,7 +12,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, 'src/index.tsx'),
-      name: 'ReactJigsaw',
+      name: 'PuzzleGeocache',
       fileName: (format) => `index.${format === 'es' ? 'esm' : format}.js`,
       formats: ['es', 'cjs'],
     },

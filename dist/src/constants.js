@@ -34,6 +34,6 @@ export const DEFAULT_PUZZLE_OPTIONS = {
         },
     },
 };
-export const REACT_JIGSAW_STORAGE_KEY = 'react-jigsaw';
+export const PUZZLE_GEOCACHE_STORAGE_KEY = 'puzzle-geocache';
 export const STROKE_WIDTH = 2;
 //# sourceMappingURL=constants.js.map

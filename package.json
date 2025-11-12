@@ -1,7 +1,7 @@
 {
-  "name": "react-jigsaw",
+  "name": "puzzle-geocache",
   "version": "1.0.0",
-  "description": "A React component for creating interactive jigsaw puzzles",
+  "description": "A React component for creating interactive puzzle geocaches",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
@@ -12,8 +12,8 @@
       "require": "./dist/index.js"
     },
     "./styles": {
-      "import": "./dist/react-jigsaw.css",
-      "require": "./dist/react-jigsaw.css"
+      "import": "./dist/puzzle-geocache.css",
+      "require": "./dist/puzzle-geocache.css"
     }
   },
   "files": [
@@ -59,7 +59,7 @@
   },
   "keywords": [
     "react",
-    "jigsaw",
+    "geocache",
     "puzzle",
     "game",
     "interactive",
@@ -69,6 +69,6 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/arissafram/react-jigsaw.git"
+    "url": "https://github.com/mayadomi/puzzle-geocache.git"
   }
 }

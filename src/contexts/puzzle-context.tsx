@@ -1,4 +1,4 @@
-import { REACT_JIGSAW_STORAGE_KEY } from '@/constants';
+import { STORAGE_KEYS } from '@/constants';
 import { createContext, useContext, useState } from 'react';
 
 // Define the shape of the puzzle context state
@@ -25,7 +25,7 @@ interface PuzzleProviderProps {
 // On first mount, check localStorage for saved values
 const getInitialBoardConfig = (checkLocalStorage: boolean) => {
   if (typeof window !== 'undefined' && checkLocalStorage) {
-    const boardConfig = localStorage.getItem(REACT_JIGSAW_STORAGE_KEY);
+    const boardConfig = localStorage.getItem(STORAGE_KEYS.BOARD_CONFIG);
     if (boardConfig) {
       const parsed = JSON.parse(boardConfig);
       if (typeof parsed.rows === 'number' && typeof parsed.columns === 'number') {

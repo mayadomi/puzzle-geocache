@@ -30,7 +30,21 @@ export interface InitialPuzzleOptions {
     width?: number;
   };
   checkLocalStorage?: boolean;
+  completionAnimation?: {
+    /** Type of animation to show on puzzle completion */
+    type?: CompletionAnimationType;
+    /** Custom class name for styling the animation */
+    className?: string;
+    /** Duration in milliseconds before auto-hiding (0 = don't auto-hide) */
+    duration?: number;
+    /** Custom message to display */
+    message?: string;
+    /** Custom React component to render instead of default animation */
+    customComponent?: React.ComponentType;
+  };
+  enableQRUnlock?: boolean;
   onComplete?: () => void;
+  onPieceUnlock?: (pieceId: string) => void;
   onRefresh?: () => void;
   puzzle?: {
     className?: string;
@@ -59,6 +73,8 @@ export interface PiecePosition extends BoardSlot {
   y: number;
 }
 
+export type CompletionAnimationType = 'confetti' | 'fade' | 'zoom' | 'none';
+
 export interface PuzzleOptions {
   board: {
     className: string;
@@ -72,7 +88,21 @@ export interface PuzzleOptions {
     width: number;
   };
   checkLocalStorage: boolean;
+  completionAnimation: {
+    /** Type of animation to show on puzzle completion */
+    type: CompletionAnimationType;
+    /** Custom class name for styling the animation */
+    className: string;
+    /** Duration in milliseconds before auto-hiding (0 = don't auto-hide) */
+    duration: number;
+    /** Custom message to display */
+    message: string;
+    /** Custom React component to render instead of default animation */
+    customComponent?: React.ComponentType;
+  };
+  enableQRUnlock: boolean;
   onComplete: () => void;
+  onPieceUnlock: (pieceId: string) => void;
   onRefresh: () => void;
   puzzle: {
     className: string;

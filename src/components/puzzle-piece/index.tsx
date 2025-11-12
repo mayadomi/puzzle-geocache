@@ -15,6 +15,8 @@ interface PuzzlePieceProps {
   pieceIndex: number;
   initialX: number;
   initialY: number;
+  initialIsSnapped?: boolean;
+  isNewlyUnlocked?: boolean;
   path: string;
   snapThreshold: number;
   boardRef: BoardRef;
@@ -23,6 +25,7 @@ interface PuzzlePieceProps {
   puzzlePieceOptions: PuzzleOptions['puzzlePiece'];
   onSnap?: () => void;
   onSnapWithKeyboard?: () => void;
+  onPositionChange?: (x: number, y: number) => void;
   registerPieceRef?: (boardSlotKey: string, ref: SVGGElement | null) => void;
   boardSlotKey: string;
   onDragStart: () => void;
@@ -36,6 +39,8 @@ const PuzzlePiece: FC<PuzzlePieceProps> = ({
   pieceIndex,
   initialX,
   initialY,
+  initialIsSnapped,
+  isNewlyUnlocked,
   path,
   snapThreshold,
   boardRef,
@@ -44,6 +49,7 @@ const PuzzlePiece: FC<PuzzlePieceProps> = ({
   puzzlePieceOptions,
   onSnap,
   onSnapWithKeyboard,
+  onPositionChange,
   registerPieceRef,
   boardSlotKey,
   onDragStart,
@@ -52,11 +58,13 @@ const PuzzlePiece: FC<PuzzlePieceProps> = ({
   const { ref, dragState, isSnapped, moveBy, trySnap, handlers } = useMovePieces({
     initialX,
     initialY,
+    initialIsSnapped,
     snapThreshold,
     boardRef,
     targetX,
     targetY,
     onSnap,
+    onPositionChange,
     onDragStart,
     onDragEnd,
   });
@@ -126,12 +134,20 @@ const PuzzlePiece: FC<PuzzlePieceProps> = ({
     }
   }, [ref, dragState.isDragging, isSnapped]);
 
+  // Build class names
+  const pieceClasses = [
+    styles.puzzlePiece,
+    isNewlyUnlocked ? styles.unlockAnimation : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
+
   return (
     <g
       ref={ref}
       transform={isSnapped ? '' : `translate(${dragState.x},${dragState.y})`}
       {...handlers}
-      className={styles.puzzlePiece}
+      className={pieceClasses}
       tabIndex={isSnapped ? -1 : 0}
       onKeyDown={handleKeyDown}
     >
