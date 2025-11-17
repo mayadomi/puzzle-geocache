@@ -6,12 +6,7 @@ import PropOptionsWrapper from './components/props-options-wrapper';
 
 import './styles.scss';
 
-import dasie1 from './assets/dasie-1.jpg';
-import dasie2 from './assets/dasie-2.jpg';
-import dasie3 from './assets/dasie-3.jpg';
-import dasie4 from './assets/dasie-4.jpg';
-
-const DASIE_IMAGES = [dasie1, dasie2, dasie3, dasie4];
+import aerialHarbor from './assets/aerial-harbor.jpg';
 
 // Check if we're in production mode (using Vite's built-in mode)
 const IS_PRODUCTION = import.meta.env.MODE === 'production';
@@ -30,7 +25,7 @@ const PRODUCTION_OPTIONS: PuzzleOptions = {
     width: 800,
     height: 600,
     snapThreshold: 25,
-    scatterArea: 250,
+    scatterArea: 600,
     showBoardSlotOutlines: true,
     outlineStrokeColor: 'rgba(39, 25, 25, 0.5)',
   },
@@ -57,29 +52,48 @@ const PRODUCTION_OPTIONS: PuzzleOptions = {
   completionAnimation: {
     className: '',
     type: 'confetti',
-    duration: 3000,
-    message: 'Congratulations! You found all the pieces!',
+    duration: 0,
+    message: (
+      <div style={{ textAlign: 'center' }}>
+        <h2 style={{ margin: '0 0 0.75rem 0', fontSize: '1.5em' }}>
+          Congrats! 🎉 You solved it! 🌏
+        </h2>
+        <p style={{ margin: 0, fontSize: '0.85em', lineHeight: '1.5' }}>
+          To look back on more historical imagery head to{' '}
+          <a
+            href="https://livingatlas.arcgis.com/wayback/#mapCenter=115.85599%2C-31.95859%2C17&mode=swipe&active=48925&swipeWidget=48925%2C10"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            ESRI Wayback
+          </a>{' '}
+          tool to see the major changes in the Perth CBD using the time slider.
+        </p>
+      </div>
+    ),
   },
 };
 
 const App = () => {
-  const [imageIndex, setImageIndex] = useState(0);
-  const [imageSource, setImageSource] = useState(DASIE_IMAGES[0]);
+  const [imageSource] = useState(aerialHarbor);
   
-  // In production mode, use fixed options. In demo mode, check URL params
+  // Check if QR unlock is requested via URL param
   const hasUnlockParam = new URLSearchParams(window.location.search).has('unlock');
+  
+  // In dev mode, disable QR unlock by default unless ?unlock param is present
+  // In production mode, always use PRODUCTION_OPTIONS as-is
   const initialOptions = IS_PRODUCTION 
     ? PRODUCTION_OPTIONS 
-    : (hasUnlockParam ? { enableQRUnlock: true } as Partial<PuzzleOptions> : undefined);
+    : { 
+        ...PRODUCTION_OPTIONS, 
+        enableQRUnlock: hasUnlockParam 
+      };
   
   const [options, setOptions] = useState<PuzzleOptions | Partial<PuzzleOptions> | undefined>(initialOptions);
   const [puzzleKey, setPuzzleKey] = useState(0);
 
   const handleRefresh = () => {
-    // Cycle through images
-    const nextIndex = (imageIndex + 1) % DASIE_IMAGES.length;
-    setImageIndex(nextIndex);
-    setImageSource(DASIE_IMAGES[nextIndex]);
+    // Refresh handler - currently no image cycling
   };
 
   const handlePropsChange = (newOptions: PuzzleOptions) => {
@@ -90,7 +104,7 @@ const App = () => {
 
   return (
     <div className="puzzleWrapper">
-      <h1 className="header">Puzzle Geocache {IS_PRODUCTION ? '' : 'Demo'}</h1>
+      <h1 className="header">GIS Day 2025 Puzzle</h1>
       <div className="puzzleContainer">
         <Puzzle key={puzzleKey} image={imageSource} onRefresh={handleRefresh} options={options} />
         {/* Only show prop controls in demo mode */}

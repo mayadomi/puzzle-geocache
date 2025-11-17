@@ -23,6 +23,28 @@
   border-radius: 1rem;
   background: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(5px);
+  pointer-events: auto;
+
+  a {
+    color: #4dabf7;
+    text-decoration: underline;
+    font-weight: bold;
+    pointer-events: auto;
+    text-shadow: 
+      0 0 8px rgba(77, 171, 247, 0.8),
+      2px 2px 4px rgba(0, 0, 0, 0.8);
+
+    &:hover {
+      color: #74c0fc;
+      text-shadow: 
+        0 0 12px rgba(116, 192, 252, 1),
+        2px 2px 4px rgba(0, 0, 0, 0.8);
+    }
+
+    &:visited {
+      color: #4dabf7;
+    }
+  }
 }
 
 /* Confetti Animation */
@@ -122,13 +144,17 @@
   .message {
     font-size: 2rem;
     padding: 1.5rem;
+    max-width: 90vw;
+    text-align: center;
   }
 }
 
 @media (max-width: 480px) {
   .message {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     padding: 1rem;
+    max-width: 90vw;
+    text-align: center;
   }
 }
 

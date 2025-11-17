@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 
 import { STROKE_WIDTH } from '@/constants';
 import { useMovePieces } from '@/hooks/use-move-pieces';
@@ -55,7 +55,7 @@ const PuzzlePiece: FC<PuzzlePieceProps> = ({
   onDragStart,
   onDragEnd,
 }) => {
-  const { ref, dragState, isSnapped, moveBy, trySnap, handlers } = useMovePieces({
+  const { ref, dragState, isSnapped, moveBy, trySnap, handlers} = useMovePieces({
     initialX,
     initialY,
     initialIsSnapped,
@@ -134,46 +134,91 @@ const PuzzlePiece: FC<PuzzlePieceProps> = ({
     }
   }, [ref, dragState.isDragging, isSnapped]);
 
-  // Build class names
+  // Build class names (don't add unlockAnimation here, it's on the wrapper)
   const pieceClasses = [
     styles.puzzlePiece,
-    isNewlyUnlocked ? styles.unlockAnimation : '',
   ]
     .filter(Boolean)
     .join(' ');
 
+  // For newly unlocked pieces, force the transform to be applied immediately
+  // by baking it into the element structure rather than relying on React timing
+  const transform = isSnapped ? '' : `translate(${dragState.x},${dragState.y})`;
+  const unlockWrapperTransform = isNewlyUnlocked ? transform : '';
+  const normalTransform = !isNewlyUnlocked ? transform : '';
+
   return (
-    <g
-      ref={ref}
-      transform={isSnapped ? '' : `translate(${dragState.x},${dragState.y})`}
-      {...handlers}
-      className={pieceClasses}
-      tabIndex={isSnapped ? -1 : 0}
-      onKeyDown={handleKeyDown}
-    >
-      <defs>
-        <clipPath id={`piece-clip-${pieceIndex}`}>
-          <path d={path} />
-        </clipPath>
-      </defs>
-      <image
-        href={image}
-        x={0}
-        y={0}
-        width={boardWidth}
-        height={boardHeight}
-        clipPath={`url(#piece-clip-${pieceIndex})`}
-        preserveAspectRatio="xMidYMid slice"
-      />
-      <path
-        d={path}
-        fill="none"
-        stroke={
-          isSnapped || !puzzlePieceOptions.strokeEnabled ? '' : puzzlePieceOptions.strokeColor
-        }
-        strokeWidth={puzzlePieceOptions.strokeEnabled ? STROKE_WIDTH : 0}
-      />
-    </g>
+    <>
+      {isNewlyUnlocked ? (
+        // For newly unlocked: Use double wrapper with transform on OUTER group
+        // This ensures transform is in the initial DOM structure
+        <g transform={unlockWrapperTransform} opacity="0" className={styles.unlockAnimationWrapper}>
+          <g
+            ref={ref}
+            {...handlers}
+            className={`${pieceClasses} ${styles.unlockAnimation}`}
+            tabIndex={isSnapped ? -1 : 0}
+            onKeyDown={handleKeyDown}
+          >
+            <defs>
+              <clipPath id={`piece-clip-${pieceIndex}`}>
+                <path d={path} />
+              </clipPath>
+            </defs>
+            <image
+              href={image}
+              x={0}
+              y={0}
+              width={boardWidth}
+              height={boardHeight}
+              clipPath={`url(#piece-clip-${pieceIndex})`}
+              preserveAspectRatio="xMidYMid slice"
+            />
+            <path
+              d={path}
+              fill="none"
+              stroke={
+                isSnapped || !puzzlePieceOptions.strokeEnabled ? '' : puzzlePieceOptions.strokeColor
+              }
+              strokeWidth={puzzlePieceOptions.strokeEnabled ? STROKE_WIDTH : 0}
+            />
+          </g>
+        </g>
+      ) : (
+        // Normal piece rendering
+        <g
+          ref={ref}
+          transform={normalTransform}
+          {...handlers}
+          className={pieceClasses}
+          tabIndex={isSnapped ? -1 : 0}
+          onKeyDown={handleKeyDown}
+        >
+          <defs>
+            <clipPath id={`piece-clip-${pieceIndex}`}>
+              <path d={path} />
+            </clipPath>
+          </defs>
+          <image
+            href={image}
+            x={0}
+            y={0}
+            width={boardWidth}
+            height={boardHeight}
+            clipPath={`url(#piece-clip-${pieceIndex})`}
+            preserveAspectRatio="xMidYMid slice"
+          />
+          <path
+            d={path}
+            fill="none"
+            stroke={
+              isSnapped || !puzzlePieceOptions.strokeEnabled ? '' : puzzlePieceOptions.strokeColor
+            }
+            strokeWidth={puzzlePieceOptions.strokeEnabled ? STROKE_WIDTH : 0}
+          />
+        </g>
+      )}
+    </>
   );
 };
 

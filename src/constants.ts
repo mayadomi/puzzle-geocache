@@ -19,7 +19,7 @@ export const DEFAULT_PUZZLE_OPTIONS: PuzzleOptions = {
     duration: 3000,
     message: 'Puzzle Complete! 🎉',
   },
-  enableQRUnlock: false,
+  enableQRUnlock: true,
   onComplete: () => {},
   onPieceUnlock: () => {},
   onRefresh: () => {},

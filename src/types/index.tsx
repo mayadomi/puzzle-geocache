@@ -38,7 +38,7 @@ export interface InitialPuzzleOptions {
     /** Duration in milliseconds before auto-hiding (0 = don't auto-hide) */
     duration?: number;
     /** Custom message to display */
-    message?: string;
+    message?: React.ReactNode;
     /** Custom React component to render instead of default animation */
     customComponent?: React.ComponentType;
   };
@@ -96,7 +96,7 @@ export interface PuzzleOptions {
     /** Duration in milliseconds before auto-hiding (0 = don't auto-hide) */
     duration: number;
     /** Custom message to display */
-    message: string;
+    message: React.ReactNode;
     /** Custom React component to render instead of default animation */
     customComponent?: React.ComponentType;
   };

@@ -352,7 +352,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
           className={completionAnimation.className}
           duration={completionAnimation.duration}
           message={completionAnimation.message}
-          onAnimationComplete={() => setIsPuzzleComplete(false)}
+          onAnimationComplete={completionAnimation.duration > 0 ? () => setIsPuzzleComplete(false) : undefined}
         />
       ) : null}
     </div>

@@ -13,7 +13,7 @@ export interface CompletionAnimationProps {
   /** Callback when animation completes */
   onAnimationComplete?: () => void;
   /** Custom message to display */
-  message?: string;
+  message?: React.ReactNode;
 }
 
 const CompletionAnimation: FC<CompletionAnimationProps> = ({
