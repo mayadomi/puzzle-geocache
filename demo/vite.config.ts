@@ -6,6 +6,9 @@ import path from 'path';
 export default defineConfig({
   base: '/puzzle-geocache/',
   plugins: [react()],
+  build: {
+    sourcemap: false, // Disable sourcemaps in production to avoid 404 errors
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, '../src'),
