@@ -92,6 +92,9 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
     getNewlyUnlockedPieceId,
   } = usePieceUnlock(imageId, rows, columns, enableQRUnlock);
 
+  // Track previously unlocked pieces to detect new unlocks
+  const prevUnlockedPieceIdsRef = useRef<string[]>([]);
+
   // Memoize edgeMap and options
   const edgeMap = useMemo(() => computeEdgeMap({ rows, columns }), [rows, columns]);
 
@@ -186,6 +189,51 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [boardHeight, boardWidth, scatterArea, hasLoadedSavedState]);
+
+  // Position newly unlocked pieces randomly within the board boundaries
+  useEffect(() => {
+    if (!hasLoadedSavedState || !enableQRUnlock) return;
+
+    // Find newly unlocked pieces
+    const prevUnlocked = prevUnlockedPieceIdsRef.current;
+    const newlyUnlocked = unlockedPieceIds.filter((id) => !prevUnlocked.includes(id));
+
+    if (newlyUnlocked.length > 0) {
+      // Update positions for newly unlocked pieces
+      setShuffledPieces((prev) => {
+        return prev.map((piece) => {
+          const pieceId = `${piece.pieceRow}-${piece.pieceCol}`;
+          
+          // If this piece was just unlocked, give it a new random position within board boundaries
+          if (newlyUnlocked.includes(pieceId)) {
+            // Calculate random position within the board (no scatter area extension)
+            const randomX = Math.random() * (boardWidth - pieceWidth);
+            const randomY = Math.random() * (boardHeight - pieceHeight);
+            
+            // Calculate offset from piece's natural board position
+            const originalBoardX = piece.pieceCol * pieceWidth;
+            const originalBoardY = piece.pieceRow * pieceHeight;
+            
+            return {
+              ...piece,
+              x: randomX - originalBoardX,
+              y: randomY - originalBoardY,
+            };
+          }
+          
+          return piece;
+        });
+      });
+
+      // Call onPieceUnlock callback for each newly unlocked piece
+      newlyUnlocked.forEach((pieceId) => {
+        onPieceUnlock?.(pieceId);
+      });
+
+      // Update the ref to track current unlocked pieces
+      prevUnlockedPieceIdsRef.current = unlockedPieceIds;
+    }
+  }, [unlockedPieceIds, hasLoadedSavedState, enableQRUnlock, boardWidth, boardHeight, pieceWidth, pieceHeight, onPieceUnlock]);
 
   // Save puzzle state when pieces move or snap (debounced)
   useEffect(() => {
