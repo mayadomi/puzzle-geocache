@@ -17,4 +17,16 @@
     height: 16px;
     width: 16px;
   }
+
+  // Mobile responsiveness - larger touch target
+  @media (max-width: 768px) {
+    height: 28px;
+    padding: 4px 8px;
+    width: 34px;
+
+    svg {
+      height: 18px;
+      width: 18px;
+    }
+  }
 }

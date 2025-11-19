@@ -1,12 +1,15 @@
 .puzzle {
   min-width: 260px;
+  position: relative;
 }
 
 .responsive {
   max-width: 100%;
+  width: 100%;
 
   & > * {
     height: auto;
+    max-width: 100%;
     width: 100%;
   }
 }

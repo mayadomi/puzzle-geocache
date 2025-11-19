@@ -7,7 +7,7 @@ export const DEFAULT_PUZZLE_OPTIONS: PuzzleOptions = {
     height: 500,
     outlineStrokeColor: '#000',
     rows: 4,
-    scatterArea: 0,
+    scatterArea: -100,
     showBoardSlotOutlines: true,
     snapThreshold: 20,
     width: 400,

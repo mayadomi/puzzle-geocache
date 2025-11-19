@@ -8,4 +8,9 @@
   margin-top: 0;
   width: auto;
   z-index: 0;
+
+  // Mobile responsiveness
+  @media (max-width: 480px) {
+    font-size: 10px;
+  }
 }

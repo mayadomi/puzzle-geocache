@@ -1,7 +1,26 @@
 .board {
   background: transparent;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  display: block;
+  height: auto;
   margin: 6px 0;
+  max-width: 100%;
   overflow: visible;
+  width: 100%;
   z-index: 1;
+}
+
+.boardWrapper {
+  position: relative;
+  width: 100%;
+}
+
+// In responsive mode, ensure proper aspect ratio handling
+:global(.responsive) .boardWrapper {
+  height: auto;
+}
+
+// In non-responsive mode, allow explicit height
+:global(.puzzle:not(.responsive)) .boardWrapper {
+  height: 100%;
 }

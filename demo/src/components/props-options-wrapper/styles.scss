@@ -82,4 +82,55 @@
       }
     }
   }
+
+  // Mobile responsiveness
+  @media (max-width: 768px) {
+    bottom: 10px;
+    right: 10px;
+    
+    .propsToggleButton {
+      font-size: 11px;
+      padding: 6px 12px;
+    }
+
+    .propsMenu {
+      max-height: 70vh;
+      max-width: 90vw;
+      width: calc(100vw - 40px);
+      
+      .formHeader p {
+        font-size: 11px;
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    bottom: 8px;
+    right: 8px;
+    
+    .propsToggleButton {
+      font-size: 10px;
+      padding: 5px 10px;
+    }
+
+    .propsMenu {
+      max-height: 75vh;
+      max-width: 95vw;
+      padding: 8px;
+      width: calc(100vw - 32px);
+      
+      .formHeader {
+        padding: 8px 8px 12px;
+        
+        p {
+          font-size: 10px;
+        }
+      }
+
+      .applyButton {
+        font-size: 0.75rem;
+        padding: 6px 12px;
+      }
+    }
+  }
 }

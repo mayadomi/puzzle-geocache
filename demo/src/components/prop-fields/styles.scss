@@ -75,4 +75,41 @@
     font-size: 12pxg;
     margin-right: 4px;
   }
+
+  // Mobile responsiveness
+  @media (max-width: 480px) {
+    &.indent1 {
+      margin-left: 0.5rem;
+    }
+
+    &.indent2 {
+      margin-left: 1rem;
+    }
+
+    &.indent3 {
+      margin-left: 1.5rem;
+    }
+
+    label {
+      font-size: 11px;
+    }
+
+    input[type='text'],
+    input[type='number'] {
+      font-size: 0.7rem;
+    }
+
+    input[type='checkbox'] {
+      width: 12px;
+      height: 12px;
+    }
+
+    .key {
+      font-size: 0.7rem;
+    }
+
+    .brace {
+      font-size: 11px;
+    }
+  }
 }

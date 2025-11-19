@@ -51,6 +51,43 @@
       cursor: unset;
     }
   }
+
+  // Mobile responsiveness - larger touch targets
+  @media (max-width: 768px) {
+    label {
+      font-size: 11px;
+      gap: 3px;
+    }
+
+    input[type='text'] {
+      font-size: 11px;
+      width: 32px;
+    }
+
+    input[type='submit'] {
+      height: 28px;
+      width: 36px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    label {
+      font-size: 10px;
+      gap: 2px;
+      margin-right: 8px;
+    }
+
+    input[type='text'] {
+      font-size: 10px;
+      width: 28px;
+    }
+
+    input[type='submit'] {
+      font-size: 12px;
+      height: 26px;
+      width: 34px;
+    }
+  }
 }
 
 .inlineNote {
@@ -59,4 +96,9 @@
   margin-top: 2px;
   text-transform: uppercase;
   width: 100%;
+
+  // Mobile responsiveness
+  @media (max-width: 480px) {
+    font-size: 7px;
+  }
 }

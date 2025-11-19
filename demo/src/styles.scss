@@ -3,7 +3,9 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
   padding: 24px;
+  width: 100%;
 
   .header {
     font-family: monospace;
@@ -11,12 +13,18 @@
     font-weight: 600;
     padding-top: clamp(50px, 12.5vw, 100px);
     padding-bottom: 24px;
+    text-align: center;
   }
 
   .puzzleContainer {
     background: #d4edda;
     border-radius: 12px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
     padding: 24px;
+    width: 100%;
   }
 
   .githubLink {
@@ -27,5 +35,50 @@
     left: 20px;
     padding-top: 24px;
     position: fixed;
+  }
+
+  // Mobile responsiveness
+  @media (max-width: 768px) {
+    padding: 16px;
+    
+    .header {
+      font-size: 1rem;
+      padding-bottom: 16px;
+      padding-top: clamp(20px, 8vw, 50px);
+    }
+
+    .puzzleContainer {
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .githubLink {
+      bottom: 10px;
+      font-size: 10px;
+      left: 10px;
+      padding-top: 16px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 8px;
+    
+    .header {
+      font-size: 0.9rem;
+      padding-bottom: 12px;
+      padding-top: 20px;
+    }
+
+    .puzzleContainer {
+      border-radius: 6px;
+      padding: 12px;
+    }
+
+    .githubLink {
+      bottom: 8px;
+      font-size: 9px;
+      left: 8px;
+      padding-top: 12px;
+    }
   }
 }
